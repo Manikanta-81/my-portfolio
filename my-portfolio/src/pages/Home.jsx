@@ -285,17 +285,20 @@ function Home() {
             <div className="order-1 lg:order-2">
               {/* Right Content - Profile Image */}
               <div className={`flex justify-center lg:justify-end transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-                <div className="relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] lg:w-96 lg:h-[32rem] group">
+                <div className="relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] lg:w-96 lg:h-[32rem] group overflow-visible">
                   {/* Floating Animation Ring */}
                   <div className="absolute inset-0 rounded-lg border-2 border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
                   
                   {/* Main Image Container */}
-                  <div className="relative w-full h-full rounded-lg overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500 bg-gray-100">
-                    <img 
-                      src={profileImage} 
-                      alt="Vaddi Manikanta" 
-                      className="w-full h-full object-contain object-top -mt-4 sm:-mt-6 md:-mt-8 group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div className="relative w-full h-full rounded-lg overflow-visible shadow-lg group-hover:shadow-2xl transition-all duration-500 bg-gray-100">
+                    <div className="absolute inset-0 flex items-start justify-center">
+                      <img 
+                        src={profileImage} 
+                        alt="Vaddi Manikanta" 
+                        className="w-full h-auto max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        style={{ transform: 'translateY(-5%)' }}
+                      />
+                    </div>
                     
                     {/* Gradient Overlay on Hover */}
                     <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
