@@ -18,6 +18,37 @@ function Projects() {
 
   const projectsData = [
     {
+      id: "portfolio-website",
+      title: "Personal Portfolio Website",
+      type: "Frontend Web Application",
+      image: "/api/placeholder/600/400",
+      description:
+        "A modern, responsive portfolio website showcasing my skills, projects, and experience. Built with React.js and Tailwind CSS for optimal performance and user experience.",
+      features: [
+        "Responsive design optimized for all devices",
+        "Modern UI/UX with smooth animations and transitions",
+        "Interactive sections for projects, skills, and experience",
+        "Contact form with email integration",
+        "SEO optimized for better visibility",
+        "Fast loading with optimized assets",
+      ],
+      technologies: [
+        "React.js",
+        "JavaScript",
+        "Tailwind CSS",
+        "Node.js",
+        "Express.js",
+        "Nodemailer",
+      ],
+      collaborator: "Solo Project",
+      collaboratorLinkedIn: "https://www.linkedin.com/in/balajis183/",
+      githubLink: "https://github.com/Manikanta-81/my-portfolio",
+      liveLink: "https://manikanta-vaddi-portfolio.vercel.app",
+      status: "Completed",
+      duration: "1 month",
+      category: "Frontend",
+    },
+    {
       id: "hotel-management",
       title: "Hotel Management System",
       type: "Full-Stack Web Application",

@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '475px',
+      },
       fontFamily: {
         bricolage: ['"Bricolage Grotesque"', 'sans-serif'],
       },
@@ -21,6 +24,11 @@ module.exports = {
         'pulse-slow': 'pulse 3s infinite',
         'wiggle': 'wiggle 1s ease-in-out infinite',
         'scale-102': 'scale102 0.3s ease-out',
+        'slide-up': 'slideUp 0.8s ease-out',
+        'slide-down': 'slideDown 0.8s ease-out',
+        'fade-in-up': 'fadeInUp 0.8s ease-out',
+        'fade-in-left': 'fadeInLeft 0.8s ease-out',
+        'fade-in-right': 'fadeInRight 0.8s ease-out',
       },
       keyframes: {
         gradient: {
@@ -64,6 +72,26 @@ module.exports = {
         scale102: {
           '0%': { transform: 'scale(1)' },
           '100%': { transform: 'scale(1.02)' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(100px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(-100px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        fadeInUp: {
+          '0%': { transform: 'translateY(50px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        fadeInLeft: {
+          '0%': { transform: 'translateX(-50px)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        fadeInRight: {
+          '0%': { transform: 'translateX(50px)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
         },
       },
       backgroundImage: {

@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useScrollAnimations } from '../hooks/useScrollAnimation'
 import { 
   ChevronDown, 
   Mail, 
@@ -6,40 +7,26 @@ import {
   Database, 
   Globe, 
   GitBranch, 
-  Zap,
   Monitor,
   Server,
-  Smartphone,
   Shield,
   ExternalLink, 
   Github, 
   Linkedin, 
   Calendar,
   ArrowRight,
-  Star,
-  Eye,
   MapPin,
   Send,
   Building,
   MessageCircle,
   Download,
-  Sparkles,
-  Rocket,
-  Award,
-  BookOpen,
-  GraduationCap,
-  Briefcase,
   Phone,
-  User,
-  MessageSquare,
   CheckCircle,
-  AlertCircle,
-  Play,
-  Pause,
-  Volume2
+  AlertCircle
 } from 'lucide-react'
 import { sendContactEmail } from '../services/emailService'
 import profileImage from '../assets/Manikanta-Vaddi Photo.jpg'
+import portfolio from '../assets/portfolio.png'
 import hotelManagementImage from '../assets/Hotel-management-system.png'
 import resumePDF from '../assets/Manikanta_vaddi_Resume.pdf'
 import btechLogo from '../assets/B.tech.png'
@@ -48,11 +35,13 @@ import ethnusLogo from '../assets/Ethnus.png'
 import sriGayatriLogo from '../assets/sri-gayatri-academy-narayanguda-hyderabad-educational-institutes-ryat9ow56t-250.avif'
 
 function Home() {
-  const [visibleElements, setVisibleElements] = useState([])
   const [hoveredElement, setHoveredElement] = useState(null)
   const [isLoaded, setIsLoaded] = useState(false)
   const [currentText, setCurrentText] = useState('')
   const [textIndex, setTextIndex] = useState(0)
+  
+  // Use the new scroll animation system
+  const visibleSections = useScrollAnimations()
   
   // Contact form state
   const [formData, setFormData] = useState({
@@ -64,17 +53,8 @@ function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null) // 'success', 'error', or null
   
-  const texts = [
-    'Full Stack Developer',
-    'React Specialist', 
-    'Node.js Expert',
-    'MERN Stack Developer',
-    'Tech Enthusiast'
-  ]
-
   useEffect(() => {
     const timer = setTimeout(() => {
-      setVisibleElements(['hero', 'skills', 'projects', 'experience', 'education', 'contact'])
       setIsLoaded(true)
     }, 100)
     return () => clearTimeout(timer)
@@ -83,6 +63,14 @@ function Home() {
   // Typewriter effect
   useEffect(() => {
     if (!isLoaded) return
+    
+    const texts = [
+      'Full Stack Developer',
+      'React Specialist', 
+      'Node.js Expert',
+      'MERN Stack Developer',
+      'Tech Enthusiast'
+    ]
     
     const typewriterTimer = setTimeout(() => {
       const currentTextToShow = texts[textIndex]
@@ -101,7 +89,7 @@ function Home() {
     }, 100)
 
     return () => clearTimeout(typewriterTimer)
-  }, [currentText, textIndex, isLoaded, texts])
+  }, [currentText, textIndex, isLoaded])
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId)
@@ -195,6 +183,27 @@ function Home() {
 
   const projectsData = [
     {
+      id: 'portfolio-website',
+      title: 'Personal Portfolio Website',
+      type: 'Frontend Web Application',
+      image: portfolio,
+      description: 'A modern, responsive portfolio website showcasing my skills, projects, and experience. Built with React.js and Tailwind CSS for optimal performance and user experience.',
+      features: [
+        'Responsive design optimized for all devices',
+        'Modern UI/UX with smooth animations and transitions',
+        'Interactive sections for projects, skills, and experience',
+        'Contact form with email integration',
+        'SEO optimized for better visibility',
+        'Fast loading with optimized assets'
+      ],
+      technologies: ['React.js', 'JavaScript', 'Tailwind CSS', 'Node.js', 'Express.js', 'Nodemailer'],
+      githubLink: 'https://github.com/Manikanta-81/my-portfolio',
+      liveLink: 'https://manikanta-vaddi-portfolio.vercel.app',
+      status: 'Completed',
+      duration: '1 month',
+      category: 'Frontend'
+    },
+    {
       id: 'hotel-management',
       title: 'Hotel Management System',
       type: 'Full-Stack Web Application',
@@ -256,31 +265,11 @@ function Home() {
     }
   ]
 
-  const getColorClasses = (color) => {
-    const colorMap = {
-      blue: { bg: 'bg-blue-50', iconBg: 'bg-blue-100', iconColor: 'text-blue-600', border: 'border-blue-200', hover: 'hover:bg-blue-100', text: 'text-blue-700' },
-      green: { bg: 'bg-green-50', iconBg: 'bg-green-100', iconColor: 'text-green-600', border: 'border-green-200', hover: 'hover:bg-green-100', text: 'text-green-700' },
-      purple: { bg: 'bg-purple-50', iconBg: 'bg-purple-100', iconColor: 'text-purple-600', border: 'border-purple-200', hover: 'hover:bg-purple-100', text: 'text-purple-700' },
-      orange: { bg: 'bg-orange-50', iconBg: 'bg-orange-100', iconColor: 'text-orange-600', border: 'border-orange-200', hover: 'hover:bg-orange-100', text: 'text-orange-700' },
-      indigo: { bg: 'bg-indigo-50', iconBg: 'bg-indigo-100', iconColor: 'text-indigo-600', border: 'border-indigo-200', hover: 'hover:bg-indigo-100', text: 'text-indigo-700' }
-    }
-    return colorMap[color] || colorMap.blue
-  }
-
-  const getCategoryColor = (category) => {
-    const colorMap = {
-      'Full-Stack': 'bg-blue-100 text-blue-800 border-blue-200',
-      'Frontend': 'bg-green-100 text-green-800 border-green-200',
-      'Backend': 'bg-purple-100 text-purple-800 border-purple-200',
-      'Mobile': 'bg-orange-100 text-orange-800 border-orange-200'
-    }
-    return colorMap[category] || colorMap['Full-Stack']
-  }
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16 relative overflow-hidden">
+      <section id="hero" className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 relative overflow-hidden">
         {/* Background Animation Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-gray-200 rounded-full animate-pulse opacity-30"></div>
@@ -289,17 +278,17 @@ function Home() {
         </div>
 
         <div className="max-w-6xl mx-auto w-full relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
             {/* Mobile: Profile Image First, Desktop: Content First */}
             <div className="order-1 lg:order-2">
               {/* Right Content - Profile Image */}
               <div className={`flex justify-center lg:justify-end transition-all duration-1000 delay-300 ${isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-                <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 group">
+                <div className="relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] lg:w-96 lg:h-[32rem] group">
                   {/* Floating Animation Ring */}
-                  <div className="absolute inset-0 rounded-full border-2 border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
+                  <div className="absolute inset-0 rounded-lg border-2 border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
                   
                   {/* Main Image Container */}
-                  <div className="relative w-full h-full rounded-full overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                  <div className="relative w-full h-full rounded-lg overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500">
                     <img 
                       src={profileImage} 
                       alt="Vaddi Manikanta" 
@@ -318,7 +307,7 @@ function Home() {
             </div>
 
             {/* Mobile: Content Second, Desktop: Content First */}
-            <div className={`order-2 lg:order-1 space-y-6 sm:space-y-8 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className={`order-2 lg:order-1 space-y-4 sm:space-y-6 md:space-y-8 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               {/* Greeting */}
               <div className="flex items-center space-x-3 mb-4 sm:mb-6 group">
                 <div className="w-2 h-2 bg-black rounded-full group-hover:scale-125 transition-transform duration-300"></div>
@@ -326,8 +315,8 @@ function Home() {
               </div>
 
               {/* Main Headline */}
-              <div className="space-y-4 sm:space-y-6">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-black leading-[1.1] group">
+              <div className="space-y-3 sm:space-y-4 md:space-y-6">
+                <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-black leading-[1.1] group break-words">
                   Hi, I'm{' '}
                   <span className="font-bold relative inline-block">
                     <span className="relative z-10">Manikanta</span>
@@ -336,7 +325,7 @@ function Home() {
                   </span>
                 </h1>
                 
-                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light text-gray-600 h-12 sm:h-16 flex items-center">
+                <div className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-light text-gray-600 h-10 sm:h-12 md:h-16 flex items-center">
                   <span className="animate-fade-in">
                     {currentText}
                   </span>
@@ -419,17 +408,16 @@ function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {skillsData.map((skill, index) => {
-              const colors = getColorClasses(skill.color)
               const IconComponent = skill.icon
-              const isVisible = visibleElements.includes('skills')
+              const isVisible = visibleSections.has('skills')
               const isHovered = hoveredElement === skill.id
 
               return (
                 <div
                   key={skill.id}
                   className={`
-                    group bg-white p-8 transition-all duration-500 transform relative overflow-hidden
-                    ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                    group bg-white p-8 transition-all duration-700 transform relative overflow-hidden
+                    ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}
                     ${isHovered ? 'shadow-xl scale-105' : 'shadow-sm hover:shadow-lg hover:scale-102'}
                   `}
                   style={{ transitionDelay: `${index * 100}ms` }}
@@ -488,15 +476,15 @@ function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {projectsData.map((project, index) => {
-              const isVisible = visibleElements.includes('projects')
+              const isVisible = visibleSections.has('projects')
               const isHovered = hoveredElement === project.id
 
               return (
                 <div
                   key={project.id}
                   className={`
-                    group bg-white border border-gray-200 transition-all duration-500 transform
-                    ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                    group bg-white border border-gray-200 transition-all duration-700 transform
+                    ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'}
                     ${isHovered ? 'shadow-lg' : 'shadow-sm hover:shadow-md'}
                   `}
                   style={{ transitionDelay: `${index * 150}ms` }}
@@ -652,7 +640,9 @@ function Home() {
           </div>
           
           {/* Future Forbes */}
-          <div className="bg-white p-8 rounded-lg shadow-md mb-8 border border-gray-100">
+          <div className={`bg-white p-8 rounded-lg shadow-md mb-8 border border-gray-100 transition-all duration-700 transform ${
+            visibleSections.has('experience') ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+          }`}>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Full Stack Web Developer (Contract Based)</h3>
@@ -676,7 +666,9 @@ function Home() {
           </div>
 
           {/* Bluebex Software */}
-          <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
+          <div className={`bg-white p-8 rounded-lg shadow-md border border-gray-100 transition-all duration-700 transform ${
+            visibleSections.has('experience') ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+          }`} style={{ transitionDelay: '200ms' }}>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
               <div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Full Stack Web Developer Intern</h3>
@@ -751,7 +743,9 @@ function Home() {
           
           <div className="max-w-4xl mx-auto space-y-8">
             {/* MERN Course */}
-            <div className={`bg-white p-8 border border-gray-200 transition-all duration-500 ${visibleElements.includes('education') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className={`bg-white p-8 border border-gray-200 transition-all duration-700 transform ${
+              visibleSections.has('education') ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+            }`}>
               <div className="flex items-center mb-6">
                 <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mr-6">
                   <img 
@@ -776,7 +770,9 @@ function Home() {
             </div>
 
             {/* Bachelor's Degree */}
-            <div className={`bg-white p-8 border border-gray-200 transition-all duration-500 delay-100 ${visibleElements.includes('education') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className={`bg-white p-8 border border-gray-200 transition-all duration-700 transform ${
+              visibleSections.has('education') ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+            }`} style={{ transitionDelay: '200ms' }}>
               <div className="flex items-center mb-6">
                 <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mr-6">
                   <img 
@@ -805,7 +801,9 @@ function Home() {
             </div>
 
             {/* Intermediate */}
-            <div className={`bg-white p-8 border border-gray-200 transition-all duration-500 delay-200 ${visibleElements.includes('education') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className={`bg-white p-8 border border-gray-200 transition-all duration-700 transform ${
+              visibleSections.has('education') ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+            }`} style={{ transitionDelay: '400ms' }}>
               <div className="flex items-center mb-6">
                 <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mr-6">
                   <img 
@@ -834,7 +832,9 @@ function Home() {
             </div>
 
             {/* School */}
-            <div className={`bg-white p-8 border border-gray-200 transition-all duration-500 delay-300 ${visibleElements.includes('education') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className={`bg-white p-8 border border-gray-200 transition-all duration-700 transform ${
+              visibleSections.has('education') ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+            }`} style={{ transitionDelay: '600ms' }}>
               <div className="flex items-center mb-6">
                 <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mr-6">
                   <img 
@@ -880,7 +880,9 @@ function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Information */}
-            <div className={`transition-all duration-700 ${visibleElements.includes('contact') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
+            <div className={`transition-all duration-700 transform ${
+              visibleSections.has('contact') ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 -translate-x-12 scale-95'
+            }`}>
               <h3 className="text-2xl font-medium text-black mb-8">Contact Information</h3>
               
               <div className="space-y-6">
@@ -945,7 +947,9 @@ function Home() {
             </div>
 
             {/* Contact Form */}
-            <div className={`transition-all duration-700 delay-200 ${visibleElements.includes('contact') ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
+            <div className={`transition-all duration-700 transform ${
+              visibleSections.has('contact') ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-12 scale-95'
+            }`} style={{ transitionDelay: '200ms' }}>
               <h3 className="text-2xl font-medium text-black mb-8">Send a Message</h3>
               
               {/* Status Messages */}
