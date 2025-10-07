@@ -33,6 +33,8 @@ import btechLogo from '../assets/B.tech.png'
 import gdetLogo from '../assets/G.D.E.T.M.CH.School.png'
 import ethnusLogo from '../assets/Ethnus.png'
 import sriGayatriLogo from '../assets/sri-gayatri-academy-narayanguda-hyderabad-educational-institutes-ryat9ow56t-250.avif'
+import futureForbesImage from '../assets/future-forbes.png'
+import laxmiHospitalityImage from '../assets/laxmi-hospitality.png'
 
 function Home() {
   const [hoveredElement, setHoveredElement] = useState(null)
@@ -227,7 +229,7 @@ function Home() {
       id: 'laxmi-hospitality',
       title: 'Laxmi Hospitality Services',
       type: 'Freelance Project',
-      image: null, // Will use placeholder
+      image: laxmiHospitalityImage,
       description: 'Developed a responsive, SEO-friendly React.js SPA with enhanced UI/UX, improving user engagement and navigation.',
       features: [
         'Responsive design for all devices',
@@ -238,7 +240,7 @@ function Home() {
       ],
       technologies: ['React.js', 'JavaScript', 'CSS', 'Node.js', 'Express.js', 'Nodemailer'],
       githubLink: 'https://github.com/Manikanta-81/laxmi-hospitality',
-      liveLink: 'https://laxmihospitality.in',
+      liveLink: 'https://laxmihospitalityservices.in',
       status: 'Completed',
       duration: '2 months',
       category: 'Frontend'
@@ -247,7 +249,7 @@ function Home() {
       id: 'future-forbes',
       title: 'Future Forbes Pvt Ltd',
       type: 'Freelance Project',
-      image: null, // Will use placeholder
+      image: futureForbesImage,
       description: 'Developed a responsive, SEO-friendly React.js SPA with enhanced UI/UX, improving user engagement and navigation.',
       features: [
         'Responsive design for all devices',
@@ -288,11 +290,11 @@ function Home() {
                   <div className="absolute inset-0 rounded-lg border-2 border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-spin-slow"></div>
                   
                   {/* Main Image Container */}
-                  <div className="relative w-full h-full rounded-lg overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                  <div className="relative w-full h-full rounded-lg overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500 bg-gray-100">
                     <img 
                       src={profileImage} 
                       alt="Vaddi Manikanta" 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500"
                     />
                     
                     {/* Gradient Overlay on Hover */}
