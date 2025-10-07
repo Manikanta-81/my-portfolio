@@ -294,7 +294,7 @@ function Home() {
                     <img 
                       src={profileImage} 
                       alt="Vaddi Manikanta" 
-                      className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain object-top -mt-4 sm:-mt-6 md:-mt-8 group-hover:scale-105 transition-transform duration-500"
                     />
                     
                     {/* Gradient Overlay on Hover */}
